@@ -5,8 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.Adapter;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 
@@ -28,6 +32,8 @@ public class SelectCity extends Activity implements View.OnClickListener{
     private ImageView mBackBtn;
     private ListView mListView;
     private TextView mCityInfo;
+    private EditText eSearch;
+    private String state;
 
     MyApplication app;
     List<City> data = new ArrayList<City>();
@@ -35,10 +41,21 @@ public class SelectCity extends Activity implements View.OnClickListener{
     ArrayList<String> cityId = new ArrayList<>();
     private int position;
 
+    public void search(String string) {
+        city.clear();
+        cityId.clear();
+        for (int i = 0; i < data.size(); i++) {
+            if (data.get(i).getCity().contains(string)) {
+                city.add(data.get(i).getCity());
+                cityId.add(data.get(i).getNumber());
+            }
+
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.select_city);
 
         mCityInfo = (TextView)findViewById(R.id.title_city_name);
@@ -49,8 +66,16 @@ public class SelectCity extends Activity implements View.OnClickListener{
         data = app.getCityList();
 
         for(int i=0; i<data.size(); i++) {
-            city.add(data.get(i).getCity());
-            cityId.add(data.get(i).getNumber());
+            if(cityId.isEmpty()) {
+                city.add(data.get(i).getCity());
+                cityId.add(data.get(i).getNumber());
+            }
+            String id1 = data.get(i).getNumber().substring(0,5);
+            String id2 = cityId.get(cityId.size()-1).substring(0,5);
+            if(!id1.equals(id2)) {
+                city.add(data.get(i).getCity());
+                cityId.add(data.get(i).getNumber());
+            }
         }
         mListView = (ListView) findViewById(R.id.list_view);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(
@@ -63,6 +88,34 @@ public class SelectCity extends Activity implements View.OnClickListener{
                         Toast.LENGTH_SHORT).show();
                 SelectCity.this.position = position;
                 mCityInfo.setText("当前城市："+city.get(position));
+            }
+        });
+
+        eSearch = (EditText) findViewById(R.id.search_edit);
+
+        eSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence arg0, int arg1, int arg2, int arg3) {
+                // TODO Auto-generated method stub
+                //这个应该是在改变的时候会做的动作吧，具体还没用到过。
+                if (eSearch.getText().toString() != null) {
+                    state = eSearch.getText().toString();
+                    search(state);
+                }
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence arg0, int arg1, int arg2,
+                                          int arg3) {
+                // TODO Auto-generated method stub
+                //这是文本框改变之前会执行的动作
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
             }
         });
     }
