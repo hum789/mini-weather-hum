@@ -57,7 +57,7 @@ public class Guide extends Activity implements ViewPager.OnPageChangeListener{
         views.add(inflater.inflate(R.layout.page2, null));
         views.add(inflater.inflate(R.layout.page3, null));
         viewPagerAdapter = new ViewPagerAdapter(views, this);
-        viewPager = (ViewPager)findViewById(R.id._viewpager);
+        viewPager = (ViewPager)findViewById(R.id.viewpager);
         viewPager.setAdapter(viewPagerAdapter);
         viewPager.setOnPageChangeListener(this);
 

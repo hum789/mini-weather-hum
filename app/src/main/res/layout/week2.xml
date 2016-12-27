@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="210dp">
+    <RelativeLayout
+        android:layout_width="125dp"
+        android:layout_height="match_parent"
+        android:id="@+id/week4">
+
+        <TextView
+            android:id="@+id/week4_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wednesday"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textAlignment="center" />
+
+        <ImageView
+            android:id="@+id/week4_weather_pic"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/week4_today"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/biz_plugin_weather_qing" />
+
+        <TextView
+            android:id="@+id/week4_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week4_weather_pic"
+            android:text="-2℃~7℃"
+            android:textColor="@android:color/white"
+            android:textSize="20.0sp"
+            android:textAlignment="center" />
+        <!-- 天气状况 -->
+        <TextView
+            android:id="@+id/week4_climate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week4_temperature"
+            android:textColor="@android:color/white"
+            android:text="多云转晴"
+            android:textAlignment="center" />
+        <!-- 风力信息 -->
+        <TextView
+            android:id="@+id/week4_wind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week4_climate"
+            android:text="微风"
+            android:textColor="@android:color/white"
+            android:textSize="20.0sp"
+            android:textAlignment="center" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="130dp"
+        android:layout_height="match_parent"
+        android:id="@+id/week5"
+        android:layout_toRightOf="@+id/week4"
+        android:layout_toLeftOf="@+id/week6">
+        <TextView
+            android:id="@+id/week5_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wednesday"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textAlignment="center" />
+        <ImageView
+            android:id="@+id/week5_weather_pic"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/week5_today"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/biz_plugin_weather_qing" />
+        <TextView
+            android:id="@+id/week5_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week5_weather_pic"
+            android:text="-2℃~7℃"
+            android:textColor="@android:color/white"
+            android:textSize="20.0sp"
+            android:textAlignment="center" />
+        <!-- 天气状况 -->
+        <TextView
+            android:id="@+id/week5_climate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week5_temperature"
+            android:textColor="@android:color/white"
+            android:text="多云转晴"
+            android:textAlignment="center" />
+        <!-- 风力信息 -->
+        <TextView
+            android:id="@+id/week5_wind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week5_climate"
+            android:text="微风"
+            android:textColor="@android:color/white"
+            android:textSize="20.0sp"
+            android:textAlignment="center" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="125dp"
+        android:layout_height="match_parent"
+        android:id="@+id/week6"
+        android:layout_alignParentRight="true">
+        <TextView
+            android:id="@+id/week6_today"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Wednesday"
+            android:textColor="@android:color/white"
+            android:textSize="18sp"
+            android:textAlignment="center" />
+        <ImageView
+            android:id="@+id/week6_weather_pic"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/week6_today"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/biz_plugin_weather_qing" />
+        <TextView
+            android:id="@+id/week6_temperature"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week6_weather_pic"
+            android:text="-2℃~7℃"
+            android:textColor="@android:color/white"
+            android:textSize="20.0sp"
+            android:textAlignment="center" />
+        <!-- 天气状况 -->
+        <TextView
+            android:id="@+id/week6_climate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week6_temperature"
+            android:textColor="@android:color/white"
+            android:text="多云转晴"
+            android:textAlignment="center" />
+        <!-- 风力信息 -->
+        <TextView
+            android:id="@+id/week6_wind"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/week6_climate"
+            android:text="微风"
+            android:textColor="@android:color/white"
+            android:textSize="20.0sp"
+            android:textAlignment="center" />
+    </RelativeLayout>
+
+</RelativeLayout>
