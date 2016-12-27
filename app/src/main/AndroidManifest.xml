@@ -29,6 +29,11 @@
         android:label="MiniWeather"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
+        </service>
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="R3tY61Zda7GwKqIFlDYOWtspbMeUQ3aP" />
 
         <activity android:name=".MainActivity" >
 
@@ -44,9 +49,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <service android:name="com.baidu.location.f" android:enabled="true" android:process=":remote">
-        </service>
     </application>
 
 </manifest>

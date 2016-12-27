@@ -30,11 +30,15 @@ import java.util.List;
 
 import android.view.animation.*;
 
+import cn.edu.pku.hum.app.MyApplication;
+import cn.edu.pku.hum.bean.City;
 import cn.edu.pku.hum.bean.TodayWeather;
 import cn.edu.pku.hum.util.NetUtil;
 
-import static android.R.attr.key;
-import static com.pku.hum.miniweather.R.layout.week1;
+import com.baidu.location.service.*;
+import com.baidu.location.BDLocation;
+import com.baidu.location.BDLocationListener;
+
 
 /**
  * Created by hum on 2016/9/22.
@@ -43,6 +47,11 @@ public class MainActivity extends Activity implements View.OnClickListener,ViewP
     private static final int UPDATE_TODAY_WEATHER = 1;
     private ImageView mUpdateBtn;
     private ImageView mCitySelect;
+    private ImageView mLocationBtn;
+    public LocationService locationService;
+    public String locationCity;
+    public String locationCityId;
+    private BDLocationListener mListener;
 
     private TextView cityTv, timeTv, humidityTv, temperature_nowTv, weekTv, pmDataTv, pmQualityTv,temperatureTv, climateTv,
             windTv, city_name_Tv;
@@ -58,9 +67,6 @@ public class MainActivity extends Activity implements View.OnClickListener,ViewP
 
     private ImageView[] dots;
     private int[] ids = {R.id.iv_week1,R.id.iv_week2};
-
-
-
     private Handler mHandler = new Handler() {
         public void handleMessage(android.os.Message msg){
             switch (msg.what) {
@@ -72,8 +78,13 @@ public class MainActivity extends Activity implements View.OnClickListener,ViewP
             }
         }
     };
+    List<City> data = new ArrayList<City>();
+    MyApplication app;
+
     @Override
     protected void onStart() {
+        locationService = new LocationService(getApplicationContext());
+        locationService.registerListener(mListener);
         super.onStart();
         Log.i("tag", "onStart");
     }
@@ -92,6 +103,8 @@ public class MainActivity extends Activity implements View.OnClickListener,ViewP
 
     @Override
     protected void onStop() {
+        locationService.unregisterListener(mListener); //注销掉监听
+        locationService.stop(); //停止定位服务
         super.onStop();
         Log.i("tag", "onStop");
     }
@@ -122,6 +135,8 @@ public class MainActivity extends Activity implements View.OnClickListener,ViewP
 
         mCitySelect = (ImageView) findViewById(R.id.title_city_manager);
         mCitySelect.setOnClickListener(this);
+        mLocationBtn = (ImageView) findViewById(R.id.title_location);
+        mLocationBtn.setOnClickListener(this);
         initView();
         initDots();
 
@@ -138,7 +153,7 @@ public class MainActivity extends Activity implements View.OnClickListener,ViewP
         Log.d("tag", "initView");
         LayoutInflater inflater = LayoutInflater.from(this);
         views = new ArrayList<View>();
-        views.add(inflater.inflate(week1, null));
+        views.add(inflater.inflate(R.layout.week1, null));
         views.add(inflater.inflate(R.layout.week2, null));
         viewPagerAdapter = new ViewPagerAdapter(views, this);
         viewPager = (ViewPager)findViewById(R.id.week_viewpager);
@@ -257,6 +272,28 @@ public class MainActivity extends Activity implements View.OnClickListener,ViewP
         if (view.getId() == R.id.title_city_manager) {
             Intent i = new Intent(this, SelectCity.class);
             startActivityForResult(i, 1);
+        }
+
+        if (view.getId() == R.id.title_location) {
+            locationService.start();
+            mListener = new BDLocationListener() {
+
+                @Override
+                public void onReceiveLocation(BDLocation location) {
+                    // TODO Auto-generated method stub
+                    if (null != location && location.getLocType() != BDLocation.TypeServerError) {
+                        app = (MyApplication)getApplication();
+                        data = app.getCityList();
+                        locationCity = location.getCity();
+                        for (int i=0; i<data.size(); i++) {
+                            if (locationCity.contains(data.get(i).getCity())) {
+                                locationCityId = data.get(i).getNumber();
+                            }
+                        }
+                        queryWeatherCode(locationCityId);
+                    }
+                }
+            };
         }
 
         if (view.getId() == R.id.title_update_btn) {
